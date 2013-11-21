@@ -1,0 +1,4 @@
+contacts
+========
+
+demo from everydayrailsrspec
