@@ -5,9 +5,7 @@ class Contact < ActiveRecord::Base
   validates :firstname, presence: true
   validates :lastname, presence: true
   validates :email, presence: true, uniqueness: true
-  
-  #validates :phone, uniqueness: { scope: :contact_id }
-  #validates :phones, length: { is: 0 }
+  validates :phones, length: { is: 3 }
 
   def name
     [firstname, lastname].join(' ')
