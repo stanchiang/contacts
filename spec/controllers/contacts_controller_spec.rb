@@ -1,5 +1,105 @@
 require 'spec_helper'
+=begin
+describe ContactsController do
+	shared_examples("public access to contacts") do
+		describe 'GET #index' do
+			it "populates an array of contacts" do
+				get :index
+				expect(assigns(:contacts)).to match_array [@contact]
+			end
+			it "renders the :index view" do
+				get :index
+				expect(response).to render_template :index
+			end
+		end
+		describe 'GET #show' do
+			it "assigns the requested contact to @contact" do
+				get :show, id: @contact
+				expect(assigns(:contact)).to eq @contact
+			end
+			it "renders the :show template" do
+				get :show, id: @contact
+				expect(response).to render_template :show
+			end
+		end
+	end
 
+	shared_examples("full access to contacts") do
+		describe 'GET #new' do
+			it "assigns a new Contact to @contact"
+			it "assigns a home, office, and mobile phone to the new contact"
+			it "renders the :new template"
+		end
+		describe 'GET #edit' do
+			it "assigns the requested contact to @contact"
+			it "renders the :edit template"
+		end
+		describe "POST #create" do
+			context "with valid attributes" do
+				it "creates a new contact"
+				it "redirects to the new contact"
+			end
+			context "with invalid attributes" do
+				it "does not save the new contact"
+				it "re-renders the new method"
+			end
+		end
+		describe 'PATCH #update' do
+			context "valid attributes" do
+				it "located the requested @contact"
+				it "changes @contact's attributes"
+				it "redirects to the updated contact"
+			end
+			context "invalid attributes" do
+				it "locates the requested @contact"
+				it "does not change @contact's attributes"
+				it "re-renders the edit method"
+			end
+		end
+		describe 'DELETE destroy' do
+			it "deletes the contact"
+			it "redirects to contacts#index"
+		end
+	end
+	
+	describe "admin access to contacts" do
+		before :each do
+			set_user_session(create(:admin))
+		end
+		it_behaves_like "public access to contacts"
+		it_behaves_like "full access to contacts"
+	end
+
+	describe "user access to contacts" do
+		before :each do
+			set_user_session(create(:user))
+		end
+		it_behaves_like "public access to contacts"
+		it_behaves_like "full access to contacts"
+	end
+
+	describe "guest access to contacts" do
+		it_behaves_like "public access to contacts"
+		describe 'GET #new' do
+			it "requires login" do
+				get :new
+				expect(response).to require_login
+			end
+		end
+		describe "POST #create" do
+			it "requires login"
+		end
+		describe 'PATCH #update' do
+			it "requires login"
+		end
+		describe 'DELETE #destroy' do
+			it "requires login"
+		end
+	end
+end
+=end
+
+#=begin
 describe ContactsController do
 	describe "access set" do
 		it "test root path" do
@@ -64,7 +164,7 @@ describe ContactsController do
 				end
 			end
 			
-			describe 'GET #index', test: true do
+			describe 'GET #index' do
 				context 'with params[:letter]' do
 					it "populates an array of contacts starting with the letter" do
 						delete :destroy, id: @contact
@@ -270,3 +370,4 @@ describe ContactsController do
 		end
 	end
 end
+#=end
